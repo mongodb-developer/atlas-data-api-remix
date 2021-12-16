@@ -45,3 +45,9 @@ Then run the app in production mode:
 ```sh
 npm start
 ```
+
+## Application
+
+Once the web server starts go into the main page and navigate to Movies Demo link. 
+- Click movies for further information
+- Search key words to find movies.
