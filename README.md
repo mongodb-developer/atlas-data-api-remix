@@ -3,7 +3,7 @@ A sample app to show case new [remix.run](https://remix.run/) JS framework with 
 
 ## Prerquisities
 
-- [Get startd with Atlas](https://docs.atlas.mongodb.com/getting-started/) and prepare a cluster to work with.
+- [Get started with Atlas](https://docs.atlas.mongodb.com/getting-started/) and prepare a cluster to work with.
 
 - [Enable](https://docs.atlas.mongodb.com/api/data-api/) the DATA API and save the API key
 
