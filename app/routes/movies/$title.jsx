@@ -10,7 +10,7 @@ export let loader = async ({ params }) => {
   var data = JSON.stringify({
     "collection": "movies",
     "database": "sample_mflix",
-    "dataSource": "Dev",
+    "dataSource": process.env.CLUSTER_NAME,
     "filter" : {"title" : params.title}
 });
             
