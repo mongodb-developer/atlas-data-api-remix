@@ -32,7 +32,7 @@ export let loader = async ({ request }) => {
   var data = JSON.stringify({
     "collection": "movies",
     "database": "sample_mflix",
-    "dataSource": "Dev",
+    "dataSource": process.env.CLUSTER_NAME,
     "pipeline" : pipeline
 });
     
