@@ -9,6 +9,8 @@ A sample app to show case new [remix.run](https://remix.run/) JS framework with 
 
 - [Load sample data](https://docs.atlas.mongodb.com/sample-data/) set into the cluster (This application is using `sample_mflix` for its demo)
 
+- For the full text search capabilities of this demo you need to create a dynamic [Atlas Search index](https://docs.atlas.mongodb.com/atlas-search/tutorial/create-index-ui/) on collection `sample_mflix.movies` (use default dynamic mappings).
+
 - Create a `.env` file in the main directory:
 ```
 DATA_API_KEY=<API-KEY>
