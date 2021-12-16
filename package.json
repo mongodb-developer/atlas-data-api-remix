@@ -1,0 +1,46 @@
+{
+  "private": true,
+  "name": "remix-app-template-js",
+  "description": "",
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
+  },
+  "license": "",
+  "scripts": {
+    "build": "remix build",
+    "dev": "node -r dotenv/config node_modules/.bin/remix dev",
+    "postinstall": "remix setup node",
+    "start": "remix-serve build",
+    "compile-boundle": "webpack-cli --mode development app/root.jsx --output public/bundle.js --stats-error-details"
+  },
+  "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.2.1",
+    "@remix-run/react": "^1.0.4",
+    "@remix-run/serve": "^1.0.4",
+    "axios": "^0.24.0",
+    "babel-polyfill": "^6.26.0",
+    "dotenv": "^10.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "remix": "^1.0.4",
+    "tiny-invariant": "^1.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.0",
+    "@babel/preset-react": "^7.0.0",
+    "@remix-run/dev": "^1.0.4",
+    "babel-loader": "^8.0.4",
+    "css-loader": "^6.5.1",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.64.3",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.8"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "sideEffects": false
+}
