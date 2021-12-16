@@ -16,7 +16,7 @@ export let loader = async ({ params }) => {
             
 var config = {
     method: 'post',
-    url: 'https://data.mongodb-api.com/app/data-duvfx/endpoint/data/beta/action/findOne',
+    url: process.env.DATA_API_BASE_URL + '/action/findOne',
     headers: {
         'Content-Type': 'application/json',
         'Access-Control-Request-Headers': '*',

@@ -39,7 +39,7 @@ export let loader = async ({ request }) => {
                 
     var config = {
         method: 'post',
-        url: 'https://data.mongodb-api.com/app/data-duvfx/endpoint/data/beta/action/aggregate',
+        url: process.env.DATA_API_BASE_URL + '/action/aggregate',
         headers: {
             'Content-Type': 'application/json',
             'Access-Control-Request-Headers': '*',

@@ -12,6 +12,7 @@ A sample app to show case new remix.run JS framework with MongoDB Atlas Data Res
 - Create a `.env` file in the main directory:
 ```
 DATA_API_KEY=<API-KEY>
+DATA_API_BASE_URL=<YOUR-ENDPONT-URL>
 ```
 
 ## Development

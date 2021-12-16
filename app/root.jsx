@@ -86,7 +86,7 @@ function Layout({ children }) {
                 <Link to="/movies">Movies Demo</Link>
               </li>
               <li>
-                <a href="https://github.com/remix-run/remix">GitHub</a>
+                <a href="https://github.com/mongodb-developer/atlas-data-api-remix">GitHub</a>
               </li>
             </ul>
           </nav>
