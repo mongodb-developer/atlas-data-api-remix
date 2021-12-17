@@ -1,7 +1,6 @@
-import {Form, Link, useLoaderData , useSearchParams } from "remix";
+import {Form, Link, useLoaderData , useSearchParams, useSubmit } from "remix";
 
 const axios = require('axios');
-
 
 export let loader = async ({ request }) => {
   let url = new URL(request.url);
@@ -58,12 +57,14 @@ const getSearch = () =>{
 
 export default  function Movies() {
   let [searchParams, setSearchParams] = useSearchParams();
+  let submit = useSubmit();
   let movies =  useLoaderData();
   return (
     <div>
       <h1>Movies</h1>
-      <Form >
-      <input id="searchBar" name="searchTerm" placeholder="Search movies..."/> <button type="submit" >search</button>
+      <Form method="get">
+        <input onChange={e => submit(e.currentTarget.form)}
+        id="searchBar" name="searchTerm" placeholder="Search movies..."/>
       </Form>
       <ul>
         {movies.map(movie => (
