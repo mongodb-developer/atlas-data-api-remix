@@ -49,6 +49,14 @@ npm start
 
 ## Application
 
-Once the web server starts go into the main page and navigate to Movies Demo link. 
+Once the web server starts go into the main page and navigate to an app link. 
+
+### Movies search
+
 - Click movies for further information
 - Search key words to find movies.
+
+### Facet search
+
+- Click Facets Search for further information
+- Click on a genre to get to movies for that genre.
