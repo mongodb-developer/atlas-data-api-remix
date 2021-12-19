@@ -28,6 +28,10 @@ export let loader = () => {
       {
         to: "/movies",
         name: "Movie Search App"
+      },
+      {
+        to: "/facets",
+        name: "Facet Search App"
       }
     ]
   };
