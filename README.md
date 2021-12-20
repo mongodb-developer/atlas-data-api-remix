@@ -60,3 +60,8 @@ Once the web server starts go into the main page and navigate to an app link.
 
 - Click Facets Search for further information
 - Click on a genre to get to movies for that genre.
+
+
+## Disclaimer
+
+Use at your own risk; not a supported MongoDB product
