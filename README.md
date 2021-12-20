@@ -9,7 +9,7 @@ A sample app to show case new [remix.run](https://remix.run/) JS framework with 
 
 - [Load sample data](https://docs.atlas.mongodb.com/sample-data/) set into the cluster (This application is using `sample_mflix` for its demo)
 
-- For the full text search capabilities of this demo you need to create a dynamic [Atlas Search index](https://docs.atlas.mongodb.com/atlas-search/tutorial/create-index-ui/) on collection `sample_mflix.movies` (use default dynamic mappings).
+- For the full text search capabilities of this demo you need to create a dynamic [Atlas Search index](https://docs.atlas.mongodb.com/atlas-search/tutorial/create-index-ui/) on collection `sample_mflix.movies` (use default dynamic mappings). **Require version 4.4.11+ or 5.0.4+ of the Atlas cluster**
 
 - Create a `.env` file in the main directory:
 ```
@@ -49,6 +49,19 @@ npm start
 
 ## Application
 
-Once the web server starts go into the main page and navigate to Movies Demo link. 
+Once the web server starts go into the main page and navigate to an app link. 
+
+### Movies search
+
 - Click movies for further information
 - Search key words to find movies.
+
+### Facet search
+
+- Click Facets Search for further information
+- Click on a genre to get to movies for that genre.
+
+
+## Disclaimer
+
+Use at your own risk; not a supported MongoDB product
