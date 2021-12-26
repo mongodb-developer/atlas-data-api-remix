@@ -32,7 +32,12 @@ if (movies?.data?.document?.poster)
   poster = movies.data.document.poster;
 }
 
-  return {title: params.title, plot : movies.data.document.plot, image :  poster };
+  return {title: params.title, 
+          plot : movies.data.document.fullplot, 
+          genres : movies.data.document.genres, 
+          directors : movies.data.document.directors,
+          year : movies.data.document.year,
+          image :  poster };
 };
 
 export default function PostSlug() {
@@ -41,6 +46,27 @@ export default function PostSlug() {
     <div>
       <h1>{movie.title}</h1>
           {movie.plot}
+          <br></br>
+          <div styles="padding: 25% 0;"class="tooltip">
+            <li>
+            Year
+            </li>
+            <span class="tooltiptext">Release year {movie.year}</span>    
+          </div>
+          <br/>
+          <div styles="padding: 25% 0;" class="tooltip">
+            <li>
+              Genres
+            </li>
+            <span class="tooltiptext">{movie.genres.map(genre => {return genre + " | "})}</span>    
+          </div>
+          <br/>
+          <div styles="padding: 25% 0;" class="tooltip">
+            <li>
+              Directors
+            </li>
+            <span class="tooltiptext">{movie.directors.map(director => {return director + " | "})}</span>    
+          </div>
           <br></br>
           <img src={movie.image}></img>
     </div>
