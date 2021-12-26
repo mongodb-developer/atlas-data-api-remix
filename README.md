@@ -41,9 +41,12 @@ First, build your app for production:
 npm run build
 ```
 
-Then run the app in production mode:
+Then run the app in production mode :
 
 ```sh
+export DATA_API_KEY=<API-KEY>
+export DATA_API_BASE_URL=<YOUR-DATA-ENDPOINT-URL>
+export CLUSTER_NAME=<YOUR-ATLAS-CLUSTER-NANE>
 npm start
 ```
 
