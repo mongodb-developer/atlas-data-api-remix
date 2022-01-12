@@ -5,7 +5,7 @@ const axios = require('axios');
 export let loader = async ({ request }) => {
   let url = new URL(request.url);
   let searchTerm = url.searchParams.get("searchTerm");
-  let genres = url.searchParams.get("genres");
+  let filter = JSON.parse(url.searchParams.get("filter"));
 
   console.log(searchTerm);
   var pipeline = [];
@@ -25,13 +25,11 @@ export let loader = async ({ request }) => {
       },{$limit : 100}, { "$addFields" : {meta : "$$SEARCH_META"}}
     ]
   }
-  else if(genres)
+  else if(filter)
   {
     pipeline = [
       {
-        "$match": {
-          "genres" : genres
-        }
+        "$match": filter
       },{$limit : 100}
     ]
   }
@@ -61,9 +59,9 @@ export let loader = async ({ request }) => {
 
   let movies = await axios(config);
   let totalFound = 0;
-  if (genres)
+  if (filter)
   {
-     totalFound = await getCountMovies({"genres" : genres});
+     totalFound = await getCountMovies(filter);
   }
   else
   {
@@ -77,7 +75,7 @@ const getCountMovies = async (countFilter) =>{
   let pipeline =[];
   if (countFilter)
   {
-     pipeline = [{$match : countFilter},{$count : 'count'}]
+     pipeline = [{"$match" : countFilter},{$count : 'count'}]
   }
   else
   {

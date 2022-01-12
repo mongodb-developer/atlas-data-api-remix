@@ -43,8 +43,8 @@ export let loader = () => {
 // https://remix.run/api/conventions#meta
 export let meta = () => {
   return {
-    title: "Remix Starter",
-    description: "Welcome to remix!"
+    title: "Remix and MongoDB Atlas Starter",
+    description: "Welcome to remix and MongoDB demo app!"
   };
 };
 

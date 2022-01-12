@@ -1,10 +1,10 @@
-import { useLoaderData } from "remix";
+import { Link, useLoaderData } from "remix";
 import invariant from "tiny-invariant";
 
 const axios = require('axios');
 
 export let loader = async ({ params }) => {
-  invariant(params.title, "expected params.movieId");
+  invariant(params.title, "expected params.title");
 
 
   var data = JSON.stringify({
@@ -51,21 +51,21 @@ export default function PostSlug() {
             <li>
             Year
             </li>
-            <span class="tooltiptext">Release year {movie.year}</span>    
+            <Link class="tooltiptext" to={"../movies?filter=" + JSON.stringify({ "year" : movie.year})}>{movie.year}</Link>   
           </div>
           <br/>
           <div styles="padding: 25% 0;" class="tooltip">
             <li>
               Genres
             </li>
-            <span class="tooltiptext">{movie.genres.map(genre => {return genre + " | "})}</span>    
+            <Link class="tooltiptext" to={"../movies?filter=" + JSON.stringify({ "genres" : movie.genres})}>{movie.genres.map(genre => {return genre + " | "})}</Link>
           </div>
           <br/>
           <div styles="padding: 25% 0;" class="tooltip">
             <li>
               Directors
             </li>
-            <span class="tooltiptext">{movie.directors.map(director => {return director + " | "})}</span>    
+            <Link class="tooltiptext" to={"../movies?filter=" + JSON.stringify({ "directors" : movie.directors})}>{movie.directors.map(director => {return director + " | "})}</Link>    
           </div>
           <br></br>
           <img src={movie.image}></img>

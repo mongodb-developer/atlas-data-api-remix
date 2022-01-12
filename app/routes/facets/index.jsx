@@ -47,7 +47,6 @@ export let loader = async ({ request }) => {
     };
 
   let movies = await axios(config);
-  console.log("return " + JSON.stringify(movies.data));
   return movies.data.documents[0];
 };
 
@@ -70,7 +69,7 @@ export default function FacetSearch() {
           <tr>
           <td>
           <div class="tooltip">
-            <Link to={"../movies?genres=" + bucket._id}>{bucket._id}</Link> 
+            <Link to={"../movies?filter=" + JSON.stringify({ "genres" : bucket._id})}>{bucket._id}</Link> 
             <span class="tooltiptext">Press to filter by "{bucket._id}" genre</span>    
           </div>
           </td>
