@@ -58,10 +58,11 @@ export default function Index() {
         <h2>Welcome to Remix and MongoDB Demo!</h2>
         <p>We arer happy that you're here. 🥳</p>
         <p>
-          Feel free to take a look around the code to see how Remix and MongoDB does things.
+          Feel free to take a look around the code to see how Remix and MongoDB
+          does things.
         </p>
         <p>
-          Check out the movie  dems in this starter, and then just delete the{" "}
+          Check out the movie dems in this starter, and then just delete the{" "}
           <code>app/routes/movies</code> and <code>app/styles/demos</code>{" "}
           folders when you're ready to turn this into your next project.
         </p>
@@ -69,7 +70,7 @@ export default function Index() {
       <aside>
         <h2>Demos In This App</h2>
         <ul>
-          {data.demos.map(demo => (
+          {data.demos.map((demo) => (
             <li key={demo.to} className="remix__page__resource">
               <Link to={demo.to} prefetch="intent">
                 {demo.name}
@@ -79,7 +80,7 @@ export default function Index() {
         </ul>
         <h2>Resources</h2>
         <ul>
-          {data.resources.map(resource => (
+          {data.resources.map((resource) => (
             <li key={resource.url} className="remix__page__resource">
               <a href={resource.url}>{resource.name}</a>
             </li>

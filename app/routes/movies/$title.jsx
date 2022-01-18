@@ -1,43 +1,44 @@
 import { Link, useLoaderData } from "remix";
 import invariant from "tiny-invariant";
 
-const axios = require('axios');
+const axios = require("axios");
 
 export let loader = async ({ params }) => {
   invariant(params.title, "expected params.title");
 
-
   var data = JSON.stringify({
-    "collection": "movies",
-    "database": "sample_mflix",
-    "dataSource": process.env.CLUSTER_NAME,
-    "filter" : {"title" : params.title}
-});
-            
-var config = {
-    method: 'post',
-    url: process.env.DATA_API_BASE_URL + '/action/findOne',
-    headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Request-Headers': '*',
-        'api-key': process.env.DATA_API_KEY
-    },
-    data : data
-};
-let movies = await axios(config);
-console.log(JSON.stringify(movies.data.document));
-var poster = 'https://image.shutterstock.com/z/stock-vector-black-linear-photo-camera-logo-like-no-image-available-flat-stroke-style-trend-modern-logotype-art-622639151.jpg' ;
-if (movies?.data?.document?.poster)
-{
-  poster = movies.data.document.poster;
-}
+    collection: "movies",
+    database: "sample_mflix",
+    dataSource: process.env.CLUSTER_NAME,
+    filter: { title: params.title }
+  });
 
-  return {title: params.title, 
-          plot : movies.data.document.fullplot, 
-          genres : movies.data.document.genres, 
-          directors : movies.data.document.directors,
-          year : movies.data.document.year,
-          image :  poster };
+  var config = {
+    method: "post",
+    url: process.env.DATA_API_BASE_URL + "/action/findOne",
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Request-Headers": "*",
+      "api-key": process.env.DATA_API_KEY
+    },
+    data: data
+  };
+  let movies = await axios(config);
+  console.log(JSON.stringify(movies.data.document));
+  var poster =
+    "https://image.shutterstock.com/z/stock-vector-black-linear-photo-camera-logo-like-no-image-available-flat-stroke-style-trend-modern-logotype-art-622639151.jpg";
+  if (movies?.data?.document?.poster) {
+    poster = movies.data.document.poster;
+  }
+
+  return {
+    title: params.title,
+    plot: movies.data.document.fullplot,
+    genres: movies.data.document.genres,
+    directors: movies.data.document.directors,
+    year: movies.data.document.year,
+    image: poster
+  };
 };
 
 export default function PostSlug() {
@@ -45,30 +46,45 @@ export default function PostSlug() {
   return (
     <div>
       <h1>{movie.title}</h1>
-          {movie.plot}
-          <br></br>
-          <div styles="padding: 25% 0;"class="tooltip">
-            <li>
-            Year
-            </li>
-            <Link class="tooltiptext" to={"../movies?filter=" + JSON.stringify({ "year" : movie.year})}>{movie.year}</Link>   
-          </div>
-          <br/>
-          <div styles="padding: 25% 0;" class="tooltip">
-            <li>
-              Genres
-            </li>
-            <Link class="tooltiptext" to={"../movies?filter=" + JSON.stringify({ "genres" : movie.genres})}>{movie.genres.map(genre => {return genre + " | "})}</Link>
-          </div>
-          <br/>
-          <div styles="padding: 25% 0;" class="tooltip">
-            <li>
-              Directors
-            </li>
-            <Link class="tooltiptext" to={"../movies?filter=" + JSON.stringify({ "directors" : movie.directors})}>{movie.directors.map(director => {return director + " | "})}</Link>    
-          </div>
-          <br></br>
-          <img src={movie.image}></img>
+      {movie.plot}
+      <br></br>
+      <div styles="padding: 25% 0;" class="tooltip">
+        <li>Year</li>
+        <Link
+          class="tooltiptext"
+          to={"../movies?filter=" + JSON.stringify({ year: movie.year })}
+        >
+          {movie.year}
+        </Link>
+      </div>
+      <br />
+      <div styles="padding: 25% 0;" class="tooltip">
+        <li>Genres</li>
+        <Link
+          class="tooltiptext"
+          to={"../movies?filter=" + JSON.stringify({ genres: movie.genres })}
+        >
+          {movie.genres.map((genre) => {
+            return genre + " | ";
+          })}
+        </Link>
+      </div>
+      <br />
+      <div styles="padding: 25% 0;" class="tooltip">
+        <li>Directors</li>
+        <Link
+          class="tooltiptext"
+          to={
+            "../movies?filter=" + JSON.stringify({ directors: movie.directors })
+          }
+        >
+          {movie.directors.map((director) => {
+            return director + " | ";
+          })}
+        </Link>
+      </div>
+      <br></br>
+      <img src={movie.image}></img>
     </div>
   );
 }
