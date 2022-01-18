@@ -6,14 +6,14 @@ const axios = require("axios");
 export let loader = async ({ params }) => {
   invariant(params.title, "expected params.title");
 
-  var data = JSON.stringify({
+  let data = JSON.stringify({
     collection: "movies",
     database: "sample_mflix",
     dataSource: process.env.CLUSTER_NAME,
     filter: { title: params.title }
   });
 
-  var config = {
+  let config = {
     method: "post",
     url: process.env.DATA_API_BASE_URL + "/action/findOne",
     headers: {
@@ -21,28 +21,28 @@ export let loader = async ({ params }) => {
       "Access-Control-Request-Headers": "*",
       "api-key": process.env.DATA_API_KEY
     },
-    data: data
+    data
   };
-  let movies = await axios(config);
-  console.log(JSON.stringify(movies.data.document));
-  var poster =
+
+  let result = await axios(config);
+  let movie = result?.data?.document || {};
+
+  let poster = movie?.poster ||
     "https://image.shutterstock.com/z/stock-vector-black-linear-photo-camera-logo-like-no-image-available-flat-stroke-style-trend-modern-logotype-art-622639151.jpg";
-  if (movies?.data?.document?.poster) {
-    poster = movies.data.document.poster;
-  }
 
   return {
     title: params.title,
-    plot: movies.data.document.fullplot,
-    genres: movies.data.document.genres,
-    directors: movies.data.document.directors,
-    year: movies.data.document.year,
+    plot: movie.fullplot,
+    genres: movie.genres,
+    directors: movie.directors,
+    year: movie.year,
     image: poster
   };
 };
 
-export default function PostSlug() {
+export default function MovieDetails() {
   let movie = useLoaderData();
+
   return (
     <div>
       <h1>{movie.title}</h1>

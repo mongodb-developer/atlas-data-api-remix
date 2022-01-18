@@ -7,13 +7,11 @@ export let loader = async ({ request }) => {
   let searchTerm = url.searchParams.get("searchTerm");
   let filter = JSON.parse(url.searchParams.get("filter"));
 
-  console.log(searchTerm);
-  var pipeline = [];
+  let pipeline = [];
   if (searchTerm) {
     pipeline = [
       {
         $search: {
-          index: "default",
           text: {
             query: searchTerm,
             path: {
@@ -36,14 +34,14 @@ export let loader = async ({ request }) => {
     pipeline = [{ $limit: 100 }];
   }
 
-  var data = JSON.stringify({
+  let data = JSON.stringify({
     collection: "movies",
     database: "sample_mflix",
     dataSource: process.env.CLUSTER_NAME,
-    pipeline: pipeline
+    pipeline
   });
 
-  var config = {
+  let config = {
     method: "post",
     url: process.env.DATA_API_BASE_URL + "/action/aggregate",
     headers: {
@@ -51,40 +49,32 @@ export let loader = async ({ request }) => {
       "Access-Control-Request-Headers": "*",
       "api-key": process.env.DATA_API_KEY
     },
-    data: data
+    data
   };
 
   let movies = await axios(config);
-  let totalFound = 0;
-  if (filter) {
-    totalFound = await getCountMovies(filter);
-  } else {
-    totalFound = await getCountMovies();
-  }
+  let totalFound = filter ?  await getCountMovies(filter) : await getCountMovies();
 
   return {
-    showCount: movies.data.documents.length,
+    showCount: movies?.data?.documents?.length,
     totalCount: totalFound,
-    documents: movies.data.documents
+    documents: movies?.data?.documents
   };
 };
 
 const getCountMovies = async (countFilter) => {
-  let pipeline = [];
-  if (countFilter) {
-    pipeline = [{ $match: countFilter }, { $count: "count" }];
-  } else {
-    pipeline = [{ $count: "count" }];
-  }
+  let pipeline = countFilter ?
+    [{ $match: countFilter }, { $count: "count" }] :
+    [{ $count: "count" }];
 
-  var data = JSON.stringify({
+  let data = JSON.stringify({
     collection: "movies",
     database: "sample_mflix",
     dataSource: process.env.CLUSTER_NAME,
     pipeline: pipeline
   });
 
-  var config = {
+  let config = {
     method: "post",
     url: process.env.DATA_API_BASE_URL + "/action/aggregate",
     headers: {
@@ -97,7 +87,7 @@ const getCountMovies = async (countFilter) => {
 
   let result = await axios(config);
 
-  return result.data.documents[0].count;
+  return result?.data?.documents[0]?.count;
 };
 
 export default function Movies() {
@@ -113,6 +103,7 @@ export default function Movies() {
       totalShow = totalFound;
     }
   }
+
   return (
     <div>
       <h1>Movies</h1>

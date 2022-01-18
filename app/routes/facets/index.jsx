@@ -3,10 +3,7 @@ import { Link, useLoaderData } from "remix";
 const axios = require("axios");
 
 export let loader = async ({ request }) => {
-  let url = new URL(request.url);
-  // let searchTerm = url.searchParams.get("searchTerm");
-  //console.log(searchTerm);
-  var pipeline = [
+  let pipeline = [
     {
       $searchMeta: {
         facet: {
@@ -27,14 +24,14 @@ export let loader = async ({ request }) => {
     }
   ];
 
-  var data = JSON.stringify({
+  let data = JSON.stringify({
     collection: "movies",
     database: "sample_mflix",
     dataSource: process.env.CLUSTER_NAME,
-    pipeline: pipeline
+    pipeline
   });
 
-  var config = {
+  let config = {
     method: "post",
     url: process.env.DATA_API_BASE_URL + "/action/aggregate",
     headers: {
@@ -42,11 +39,12 @@ export let loader = async ({ request }) => {
       "Access-Control-Request-Headers": "*",
       "api-key": process.env.DATA_API_KEY
     },
-    data: data
+    data
   };
 
   let movies = await axios(config);
-  return movies.data.documents[0];
+
+  return movies?.data?.documents[0];
 };
 
 export default function FacetSearch() {
@@ -62,7 +60,7 @@ export default function FacetSearch() {
               <th>Genres</th>
               <th>No. Movies</th>
             </tr>
-            {facetResult.facet.genresFacet.buckets.map((bucket) => (
+            {facetResult?.facet?.genresFacet.buckets.map((bucket) => (
               <tr>
                 <td>
                   <div class="tooltip">
