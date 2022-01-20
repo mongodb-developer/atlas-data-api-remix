@@ -1,5 +1,6 @@
 # atlas-data-api-remix
-A sample app to show case new [remix.run](https://remix.run/) JS framework with [MongoDB Atlas Data Rest API](https://www.mongodb.com/developer/quickstart/atlas_data_api_introduction/)
+
+A sample app to show case the new [Remix](https://remix.run/) JS framework with [MongoDB Atlas Data Rest API](https://www.mongodb.com/developer/quickstart/atlas_data_api_introduction/)
 
 ## Prerquisities
 
@@ -12,6 +13,7 @@ A sample app to show case new [remix.run](https://remix.run/) JS framework with 
 - For the full text search capabilities of this demo you need to create a dynamic [Atlas Search index](https://docs.atlas.mongodb.com/atlas-search/tutorial/create-index-ui/) on collection `sample_mflix.movies` (use default dynamic mappings). **Require version 4.4.11+ or 5.0.4+ of the Atlas cluster**
 
 - Create a `.env` file in the main directory:
+
 ```
 DATA_API_KEY=<API-KEY>
 DATA_API_BASE_URL=<YOUR-DATA-ENDPOINT-URL>
@@ -21,6 +23,7 @@ CLUSTER_NAME=<YOUR-ATLAS-CLUSTER-NANE>
 ## Development
 
 Install:
+
 ```
 npm install
 ```
@@ -52,7 +55,7 @@ npm start
 
 ## Application
 
-Once the web server starts go into the main page and navigate to an app link. 
+Once the web server starts go into the main page and navigate to an app link.
 
 ### Movies search
 
@@ -63,7 +66,6 @@ Once the web server starts go into the main page and navigate to an app link.
 
 - Click Facets Search for further information
 - Click on a genre to get to movies for that genre.
-
 
 ## Disclaimer
 

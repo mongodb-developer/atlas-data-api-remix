@@ -76,7 +76,11 @@ function Layout({ children }) {
     <div className="remix-app">
       <header className="remix-app__header">
         <div className="container remix-app__header-content">
-          <img className="logo" src="https://d3cy9zhslanhfa.cloudfront.net/media/3800C044-6298-4575-A05D5C6B7623EE37/4B45D0EC-3482-4759-82DA37D8EA07D229/webimage-8A27671A-8A53-45DC-89D7BF8537F15A0D.png" styles="highet"/>
+          <img
+            className="logo"
+            src="https://d3cy9zhslanhfa.cloudfront.net/media/3800C044-6298-4575-A05D5C6B7623EE37/4B45D0EC-3482-4759-82DA37D8EA07D229/webimage-8A27671A-8A53-45DC-89D7BF8537F15A0D.png"
+            styles="highet"
+          />
           <nav aria-label="Main navigation" className="remix-app__header-nav">
             <ul>
               <li>
@@ -89,7 +93,9 @@ function Layout({ children }) {
                 <Link to="/facets">Facet Search Demo</Link>
               </li>
               <li>
-                <a href="https://github.com/mongodb-developer/atlas-data-api-remix">GitHub</a>
+                <a href="https://github.com/mongodb-developer/atlas-data-api-remix">
+                  GitHub
+                </a>
               </li>
             </ul>
           </nav>
@@ -160,7 +166,6 @@ export function ErrorBoundary({ error }) {
     </Document>
   );
 }
-
 
 /**
  * Provides an alert for screen reader users when the route changes.
