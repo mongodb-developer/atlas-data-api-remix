@@ -10,12 +10,60 @@ export let loader = async ({ params }) => {
     collection: "movies",
     database: "sample_mflix",
     dataSource: process.env.CLUSTER_NAME,
-    filter: { title: params.title }
+    pipeline: [{$match : { title: params.title }},{
+      $lookup: {
+          from: 'movies',
+          'let': {
+              genre: '$genres'
+          },
+          pipeline: [{
+                  $match: {
+                      $expr: {
+                          $and: [{
+                                  $eq: [
+                                      '$genres',
+                                      '$$genre'
+                                  ]
+                              },
+                              {
+                                  $gt: [
+                                      '$imdb.rating',
+                                      0
+                                  ]
+                              }
+                          ]
+                      }
+                  }
+              },
+              {
+                  $group: {
+                      _id: null,
+                      topMovies: {
+                          $topN: {
+                              n: 5,
+                              output: {
+                                  title: '$title',
+                                  rating: '$imdb.rating',
+                                  poster: '$poster'
+                              },
+                              sortBy: {
+                                  'imdb.rating': -1
+                              }
+                          }
+                      }
+                  }
+              }
+          ],
+          as: 'topRated'
+      }
+  }]
+    
+    //{ title: params.title }
   });
 
   let config = {
     method: "post",
-    url: process.env.DATA_API_BASE_URL + "/action/findOne",
+    url: process.env.DATA_API_BASE_URL + "/action/aggregate",
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Request-Headers": "*",
@@ -25,7 +73,7 @@ export let loader = async ({ params }) => {
   };
 
   let result = await axios(config);
-  let movie = result?.data?.document || {};
+  let movie = result?.data?.documents[0] || {};
 
   let poster = movie?.poster ||
     "https://image.shutterstock.com/z/stock-vector-black-linear-photo-camera-logo-like-no-image-available-flat-stroke-style-trend-modern-logotype-art-622639151.jpg";
@@ -36,17 +84,23 @@ export let loader = async ({ params }) => {
     genres: movie.genres,
     directors: movie.directors,
     year: movie.year,
-    image: poster
+    image: poster,
+    topRated : movie.topRated
   };
 };
 
 export default function MovieDetails() {
   let movie = useLoaderData();
-
+  console.log(JSON.stringify(movie));
   return (
     <div>
       <h1>{movie.title}</h1>
       {movie.plot}
+      <br></br><h2>Top related movies:</h2><br></br>
+            <div styles="padding: 25% 0;">{ movie.topRated.map((t) => {
+            return t.topMovies.map((m) => {return (<div><Link to={"../movies/" + m.title}> {m.title} </Link> Rating {m.rating} <br></br></div> )})
+          } )}
+      </div>  
       <br></br>
       <div styles="padding: 25% 0;" class="tooltip">
         <li>Year</li>
@@ -85,6 +139,8 @@ export default function MovieDetails() {
       </div>
       <br></br>
       <img src={movie.image}></img>
+    
+            
     </div>
   );
 }
