@@ -1,5 +1,10 @@
 import { Link, useLoaderData } from "remix";
 import invariant from "tiny-invariant";
+import styles from "~/styles/movie-details.css";
+
+export function links() {
+  return [{ rel: "stylesheet", href: styles }];
+}
 
 const axios = require("axios");
 
@@ -85,62 +90,68 @@ export let loader = async ({ params }) => {
     directors: movie.directors,
     year: movie.year,
     image: poster,
-    topRated : movie.topRated
+    topRated : movie.topRated[0]?.topMovies
   };
 };
 
 export default function MovieDetails() {
   let movie = useLoaderData();
-  console.log(JSON.stringify(movie));
+
   return (
     <div>
       <h1>{movie.title}</h1>
-      {movie.plot}
-      <br></br><h2>Top related movies:</h2><br></br>
-            <div styles="padding: 25% 0;">{ movie.topRated.map((t) => {
-            return t.topMovies.map((m) => {return (<div><Link to={"../movies/" + m.title}> {m.title} </Link> Rating {m.rating} <br></br></div> )})
-          } )}
-      </div>  
-      <br></br>
-      <div styles="padding: 25% 0;" class="tooltip">
-        <li>Year</li>
-        <Link
-          class="tooltiptext"
-          to={"../movies?filter=" + JSON.stringify({ year: movie.year })}
-        >
-          {movie.year}
+
+      {movie.genres &&
+      <div className="genres-list">
+        <Link to={`../movies?filter=${JSON.stringify({genres: movie.genres})}`}>
+          {movie.genres?.join(" / ")}
         </Link>
       </div>
-      <br />
-      <div styles="padding: 25% 0;" class="tooltip">
-        <li>Genres</li>
-        <Link
-          class="tooltiptext"
-          to={"../movies?filter=" + JSON.stringify({ genres: movie.genres })}
-        >
-          {movie.genres.map((genre) => {
-            return genre + " | ";
-          })}
-        </Link>
-      </div>
-      <br />
-      <div styles="padding: 25% 0;" class="tooltip">
-        <li>Directors</li>
-        <Link
-          class="tooltiptext"
-          to={
-            "../movies?filter=" + JSON.stringify({ directors: movie.directors })
+      }
+
+      <div className="movie-details">
+        <div>
+          <p>
+            {movie.plot}
+          </p>
+
+          {movie.year &&
+          <p>
+            Year: <Link to={`../movies?filter=${JSON.stringify({ year: movie.year})}`}>{movie.year}</Link>
+          </p>
           }
-        >
-          {movie.directors.map((director) => {
-            return director + " | ";
-          })}
-        </Link>
+
+          {movie.directors &&
+          <p>
+            Directors: <Link to={`../movies?filter=${JSON.stringify({ directors: movie.directors})}`}>{movie.directors.join(" / ")}</Link>
+          </p>
+          }
+        </div>
+
+        <div className="movie-poster-container">
+          <img className="movie-poster" alt={movie.title} src={movie.image}></img>
+        </div>
       </div>
-      <br></br>
-      <img src={movie.image}></img>
-    
-            
+
+      <h3>Related Movies</h3>
+      <div className="related-movies-container">
+
+          {movie.topRated.map((m) => 
+            <Link to={`../movies/${m.title}`}>
+              <div className="related-movie">
+                  <div className="related-movie-poster-container">
+                    <img alt={m.title} className="related-movie-poster" src={m.poster} /> 
+                  </div>
+
+                <div className="related-movie-heading">
+                  <h4>{m.title}</h4>
+                  <p>Rating: {m.rating}</p>
+                </div>
+              </div>
+            </Link>
+          )}
+      </div>
+                
     </div>
   );
 }

@@ -63,7 +63,7 @@ export default function FacetSearch() {
             {facetResult?.facet?.genresFacet.buckets.map((bucket) => (
               <tr>
                 <td>
-                  <div class="tooltip">
+                  <div className="tooltip">
                     <Link
                       to={
                         "../movies?filter=" +
@@ -72,7 +72,7 @@ export default function FacetSearch() {
                     >
                       {bucket._id}
                     </Link>
-                    <span class="tooltiptext">
+                    <span className="tooltiptext">
                       Press to filter by "{bucket._id}" genre
                     </span>
                   </div>

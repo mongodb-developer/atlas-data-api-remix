@@ -1,0 +1,41 @@
+.movie-details {
+  display: flex;
+  gap: 50px;
+  justify-content: space-between;
+}
+
+.related-movies-container {
+  display: flex;
+  gap: 30px;
+}
+
+.related-movie {
+  text-decoration: none;
+  color: var(--color-foreground);
+}
+
+.related-movie-poster, .related-movie-poster-container {
+  width: 200px;
+  height: 283px;
+  background: darkgray;
+}
+
+.movie-poster, .movie-poster-container {
+  width: 300px;
+  max-height: 500px;
+
+}
+
+.related-movie-poster-container, .movie-poster-container  {
+  background: darkgray;
+}
+
+.genres-list {
+  display: flex;
+}
+
+.genres-list span {
+  border: 1px solid blue;
+  padding: 5px;
+  border-radius: 50%;
+}
