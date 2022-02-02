@@ -19,7 +19,8 @@ export let loader = async ({ params }) => {
       $lookup: {
           from: 'movies',
           'let': {
-              genre: '$genres'
+              genre: '$genres',
+              myTitle: "$title"
           },
           pipeline: [{
                   $match: {
@@ -27,7 +28,7 @@ export let loader = async ({ params }) => {
                           $and: [{
                                   $eq: [
                                       '$genres',
-                                      '$$genre'
+                                      '$$genre' 
                                   ]
                               },
                               {
@@ -35,6 +36,9 @@ export let loader = async ({ params }) => {
                                       '$imdb.rating',
                                       0
                                   ]
+                              },
+                              {
+                                $ne : ["$title", "$$myTitle" ]
                               }
                           ]
                       }
@@ -78,20 +82,43 @@ export let loader = async ({ params }) => {
   };
 
   let result = await axios(config);
-  let movie = result?.data?.documents[0] || {};
+  let movie = {}
+  if (result?.data?.documents.length > 0)
+  {
+     movie = result?.data?.documents[0] || {};
+  }
+  else
+  {
+    movie = null
+  }
 
   let poster = movie?.poster ||
     "https://image.shutterstock.com/z/stock-vector-black-linear-photo-camera-logo-like-no-image-available-flat-stroke-style-trend-modern-logotype-art-622639151.jpg";
-
+  
+  if (movie)
+  {
+    return {
+      title: params.title,
+      plot: movie.fullplot,
+      genres: movie.genres,
+      directors: movie.directors,
+      year: movie.year,
+      image: poster,
+      topRated : movie.topRated[0]?.topMovies
+    };
+ }
+ else
+ {
   return {
-    title: params.title,
-    plot: movie.fullplot,
-    genres: movie.genres,
-    directors: movie.directors,
-    year: movie.year,
+    title: "no data",
+    plot: "no data",
+    genres: [],
+    directors: [],
+    year: "no data",
     image: poster,
-    topRated : movie.topRated[0]?.topMovies
+    topRated : []
   };
+ }
 };
 
 export default function MovieDetails() {
