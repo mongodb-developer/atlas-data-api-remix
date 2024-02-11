@@ -19,7 +19,7 @@ export let loader = async ({ params }) => {
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Request-Headers": "*",
-      "api-key": process.env.DATA_API_KEY
+      "apiKey": process.env.DATA_API_KEY
     },
     data
   };

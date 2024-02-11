@@ -47,7 +47,7 @@ export let loader = async ({ request }) => {
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Request-Headers": "*",
-      "api-key": process.env.DATA_API_KEY
+      "apiKey": process.env.DATA_API_KEY
     },
     data
   };
@@ -80,7 +80,7 @@ const getCountMovies = async (countFilter) => {
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Request-Headers": "*",
-      "api-key": process.env.DATA_API_KEY
+      "apiKey": process.env.DATA_API_KEY
     },
     data: data
   };
